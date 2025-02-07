@@ -1,10 +1,10 @@
-import Test from "./components/test";
+import WorldMap from "./components/WorldMap";
 import "./App.css";
 
 function App() {
   return (
     <div>
-      <Test />
+      <WorldMap />
     </div>
   );
 }
