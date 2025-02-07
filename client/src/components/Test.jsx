@@ -10,7 +10,7 @@ import {
 } from "@react-three/drei";
 
 function Model() {
-  const { scene } = useGLTF("/model.glb");
+  const { scene } = useGLTF("/map3.glb");
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
 
@@ -18,10 +18,11 @@ function Model() {
   const baseMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "white",
+        color: "grey",
       }),
     []
   );
+
   const selectedMaterial = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -30,8 +31,18 @@ function Model() {
     []
   );
 
+  const hoverMaterial = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: "grey",
+        emissive: "black",
+        emissiveIntensity: 0.5,
+      }),
+    []
+  );
+
   return (
-    <group scale={11} position={[-1, -7, -0.5]}>
+    <group scale={2.5} position={[-12.5, 0, -8.5]}>
       {scene.children.map((child) => {
         if (!child.isMesh) return null;
 
@@ -42,9 +53,13 @@ function Model() {
           position: [
             child.position.x,
             child.position.y,
-            isHovered || isSelected ? child.position.z - -0.025 : child.position.z,
+            isHovered || isSelected ? child.position.z - 0.1 : child.position.z,
           ],
-          material: isSelected ? selectedMaterial : baseMaterial,
+          material: isSelected
+            ? selectedMaterial
+            : isHovered
+            ? hoverMaterial
+            : baseMaterial,
           config: { mass: 1, tension: 170, friction: 26 },
         });
 
@@ -90,19 +105,12 @@ export default function InteractiveMap() {
   return (
     <Canvas
       style={{ height: "100vh" }}
-      camera={{ position: [0, 4.5, 1], fov: 75 }}
-      shadows
+      camera={{ position: [0, 10, 2], fov: 75 }}
     >
-      <ambientLight intensity={0.5} />
-      <spotLight
-        position={[10, 15, 10]}
-        angle={0.3}
-        castShadow
-        intensity={0.5}
-      />
       <Environment preset="warehouse" />
       <Model />
       <ContactShadows position={[0, -0.1, 0]} blur={5} scale={200} far={10} />
+      <axesHelper />
     </Canvas>
   );
 }
