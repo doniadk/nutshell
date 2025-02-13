@@ -1,11 +1,15 @@
-import WorldMap from "./components/WorldMap";
+import MapPage from "./pages/MapPage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
-    <div>
-      <WorldMap />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MapPage />} />
+        {/*<Route path="/country/:id" element={<CountryPage />} />*/}
+      </Routes>
+    </Router>
   );
 }
 

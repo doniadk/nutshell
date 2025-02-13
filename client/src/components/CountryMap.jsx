@@ -45,6 +45,7 @@ const CountryMap = ({
   const handleClick = (event) => {
     event.stopPropagation();
     setSelectedCountry(child.name === selectedCountry ? null : child.name);
+    console.log(child.name);
   };
 
   return (
@@ -59,6 +60,7 @@ const CountryMap = ({
       onPointerOver={handlePointerOver}
       onPointerOut={handlePointerOut}
       onClick={handleClick}
+      selectedCountry={selectedCountry}
     >
       <animated.meshStandardMaterial
         {...(isSelected

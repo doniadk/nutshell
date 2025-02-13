@@ -1,6 +1,9 @@
 import { Canvas } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
+import CountryMap from "./CountryMap";
+
+const countryID = CountryMap.selectedCountry;
 
 const CountryModel = (countryID) => {
   if (!countryID) return null; // if nothing is selected
@@ -16,3 +19,5 @@ const CountryDisplay = ({ selectedCountry }) => {
     </Canvas>
   );
 };
+
+export default CountryDisplay;
