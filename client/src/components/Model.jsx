@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import CountryMap from "./CountryMap";
-import useMaterials from "../utils/Materilals";
+import useMaterials from "../utils/Materials";
 import { useGLTF } from "@react-three/drei";
 
-function Model() {
+function Model({setSelectedCountry, selectedCountry}) {
   const { scene } = useGLTF("/map3.glb");
   const [hoveredCountry, setHoveredCountry] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(null);
   const { baseMaterial, selectedMaterial, hoverMaterial } = useMaterials();
 
   return (

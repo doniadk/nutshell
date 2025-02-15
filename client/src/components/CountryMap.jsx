@@ -1,6 +1,6 @@
 import React from "react";
 import { useSpring, animated } from "@react-spring/three";
-import * as THREE from "three";
+import { useNavigate } from "react-router-dom";
 
 const CountryMap = ({
   child,
@@ -17,10 +17,12 @@ const CountryMap = ({
   const isHovered = hoveredCountry === child.name;
   const isSelected = selectedCountry === child.name;
 
+  const navigate = useNavigate();
+
   const { position, color } = useSpring({
     position: [
       child.position.x,
-      isHovered || isSelected ? child.position.y + 0.1 : child.position.y,
+      isHovered || isSelected ? child.position.y + 0.08 : child.position.y,
       child.position.z,
     ],
     color: isSelected
@@ -46,6 +48,7 @@ const CountryMap = ({
     event.stopPropagation();
     setSelectedCountry(child.name === selectedCountry ? null : child.name);
     console.log(child.name);
+    navigate(`/country/${child.name}`);
   };
 
   return (
@@ -64,10 +67,10 @@ const CountryMap = ({
     >
       <animated.meshStandardMaterial
         {...(isSelected
-            ? selectedMaterial
-            : isHovered
-            ? hoverMaterial
-            : baseMaterial)} // Preserve the base material properties
+          ? selectedMaterial
+          : isHovered
+          ? hoverMaterial
+          : baseMaterial)} // Preserve the base material properties
         color={color} // Animate only the color
       />
     </animated.mesh>

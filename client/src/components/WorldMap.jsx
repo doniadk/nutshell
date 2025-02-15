@@ -1,5 +1,4 @@
 import React from "react";
-import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import {
   Environment,
@@ -9,7 +8,7 @@ import {
 } from "@react-three/drei";
 import Model from "./Model";
 
-export default function WorldMap() {
+export default function WorldMap({ setSelectedCountry, selectedCountry }) {
   return (
     <Canvas
       style={{ height: "100vh" }}
@@ -26,10 +25,11 @@ export default function WorldMap() {
         shadow-mapSize-height={2048}
       />
       <Environment preset="warehouse" />
-      <Model />
+      <Model
+        setSelectedCountry={setSelectedCountry}
+        selectedCountry={selectedCountry}
+      />
       <ContactShadows position={[0, -0.1, 0]} blur={5} scale={200} far={10} />
-      <axesHelper />
-      <OrbitControls />
     </Canvas>
   );
 }
