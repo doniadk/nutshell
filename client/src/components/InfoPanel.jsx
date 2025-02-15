@@ -18,11 +18,9 @@ function InfoPanel({ country }) {
     capital: "N/A",
   };
 
-
   return (
     <div
       style={{
-        border: "2px solid red", // Debug border to see the panel's boundaries
         width: "100%",
         height: "100%",
         padding: "20px",

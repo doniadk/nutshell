@@ -3,9 +3,6 @@ import { useSpring, animated } from "@react-spring/three";
 import { useNavigate } from "react-router-dom";
 import * as THREE from "three";
 
-const hoverSound = new Audio("/sound_effect.mp3");
-hoverSound.volume = 0.1;
-
 const CountryMap = ({
   child,
   hoveredCountry,
@@ -22,7 +19,6 @@ const CountryMap = ({
 
   const isHovered = hoveredCountry === child.name;
   const isSelected = selectedCountry === child.name;
-  const hasPlayedSound = useRef(false);
 
   const navigate = useNavigate();
 
@@ -47,18 +43,11 @@ const CountryMap = ({
     event.stopPropagation();
     setHoveredCountry(child.name);
     document.body.style.cursor = "pointer";
-
-    if (!hasPlayedSound.current) {
-      hoverSound.currentTime = 0;
-      hoverSound.play().catch((err) => console.warn(err));
-      hasPlayedSound.current = true;
-    }
   };
 
   const handlePointerOut = () => {
     setHoveredCountry(null);
     document.body.style.cursor = "default";
-    hasPlayedSound.current = false;
   };
 
   const handleClick = (event) => {
