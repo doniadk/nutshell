@@ -1,15 +1,20 @@
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { useState, useEffect } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useState, useEffect, useRef } from "react";
 import { a, useSpring } from "@react-spring/three";
 import * as THREE from "three";
+import { useDrag } from "@use-gesture/react"; // For drag interaction
 import useMaterials from "../utils/Materials";
 
 function CountryModel({ country, isSelected }) {
   const { scene } = useGLTF(`/country_models/${country}.glb`);
   const [model, setModel] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
   const { countryMaterial } = useMaterials();
+  const modelRef = useRef(); // Ref to the model for rotation
+  const { camera, gl } = useThree(); // Access the camera and renderer
+
+  // State to track whether the user is dragging
+  const [isDragging, setIsDragging] = useState(false);
 
   // Spring animation (re-triggers when country changes)
   const [spring, setSpring] = useSpring(() => ({
@@ -30,29 +35,13 @@ function CountryModel({ country, isSelected }) {
       });
 
       // Center & Normalize Model
-
-      // Create a bounding box around the model to determine its dimensions
       const box = new THREE.Box3().setFromObject(cloneScene);
-
-      // Create a vector to store the center of the bounding box
       const center = new THREE.Vector3();
-      box.getCenter(center); // Get the center point of the bounding box
-
-      // Move the model so that its center aligns with the scene's origin (0,0,0)
+      box.getCenter(center);
       cloneScene.position.sub(center);
-
-      // Get the size (width, height, depth) of the bounding box
       const size = box.getSize(new THREE.Vector3());
-
-      // Find the largest dimension of the model (to ensure uniform scaling)
       const maxDim = Math.max(size.x, size.y, size.z);
-
-      // Calculate a scale factor to normalize the model's size
-      // This ensures that the largest dimension fits within a 2-unit box
       const scale = 2 / maxDim;
-
-      // Apply the calculated scale to the model
-      // This ensures the entire model fits within the same size constraints
       cloneScene.scale.set(scale, scale, scale);
 
       setModel(cloneScene);
@@ -62,20 +51,41 @@ function CountryModel({ country, isSelected }) {
     }
   }, [scene, country, countryMaterial, setSpring]);
 
-  // Continuous rotation
+  // Drag interaction
+  const bind = useDrag(
+    ({ delta: [dx, dy], dragging }) => {
+      if (dragging && modelRef.current) {
+        // Rotate the model based on mouse movement
+        modelRef.current.rotation.y += dy * 0.01; // Horizontal drag affects Y rotation
+        modelRef.current.rotation.x += dx * 0.01; // Vertical drag affects X rotation
+      }
+      setIsDragging(dragging); // Update dragging state
+      document.body.style.cursor = "pointer";
+    },
+    {
+      pointerEvents: true, // Enable pointer events
+    }
+  );
+  document.body.style.cursor = "default";
+
+  // Continuous rotation (only when not dragging and selected)
   useFrame(({ clock }) => {
-    if (model && isSelected) {
-      model.rotation.z = clock.getElapsedTime() * -0.05;
+    if (modelRef.current && isSelected && !isDragging) {
+      modelRef.current.rotation.z = clock.getElapsedTime() * -0.05; // Auto-rotate
     }
   });
 
-  const handleDragMouse = () =>{
-
-  }
-
   if (!model) return null;
 
-  return <a.primitive object={model} {...spring} rotation={[-5.5, 0, 0]} />;
+  return (
+    <a.primitive
+      ref={modelRef} // Attach ref to the model
+      object={model}
+      {...spring}
+      rotation={[-5.5, 0, 0]}
+      {...bind()} // Bind drag interaction
+    />
+  );
 }
 
 export default CountryModel;

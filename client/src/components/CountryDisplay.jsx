@@ -50,13 +50,4 @@ function CountryDisplay({ country }) {
   );
 }
 
-function LoadingSpinner() {
-  return (
-    <mesh>
-      <sphereGeometry args={[0.5, 16, 16]} />
-      <meshStandardMaterial color="yellow" />
-    </mesh>
-  );
-}
-
 export default CountryDisplay;
