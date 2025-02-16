@@ -3,11 +3,11 @@ import gsap from "gsap";
 import arrowImage from "/down-arrow.png";
 
 export default function Button({ onClick }) {
-  const buttonRef = useRef(null);
+  const arrowRef = useRef(null);
   const hoverZoneRef = useRef(null);
 
   const handleMouseEnter = () => {
-    gsap.to(buttonRef.current, {
+    gsap.to(arrowRef.current, {
       opacity: 0.2,
       y: "-5px",
       duration: 0.3,
@@ -23,7 +23,7 @@ export default function Button({ onClick }) {
   };
 
   const handleMouseLeave = () => {
-    gsap.to(buttonRef.current, {
+    gsap.to(arrowRef.current, {
       opacity: 0,
       y: "0px",
       duration: 0.3,
@@ -37,7 +37,7 @@ export default function Button({ onClick }) {
   };
 
   const handleClick = () => {
-    gsap.to(buttonRef.current, {
+    gsap.to(arrowRef.current, {
       y: "100vh",
       opacity: 0,
       duration: 1,
@@ -72,7 +72,7 @@ export default function Button({ onClick }) {
       }}
     >
       <img
-        ref={buttonRef}
+        ref={arrowRef}
         src={arrowImage}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
