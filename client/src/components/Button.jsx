@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import gsap from "gsap";
-import arrowImage from "/down-arrow.png";
+import arrowImage from "/images/down-arrow.png";
 
 export default function Button({ onClick }) {
   const arrowRef = useRef(null);
