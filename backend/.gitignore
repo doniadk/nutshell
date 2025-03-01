@@ -1,0 +1,34 @@
+# Node Modules
+node_modules/
+
+# Environment Variables
+.env
+.env.local
+.env.development
+.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache/
+.cache-loader/
+
+# Editor Folders
+.vscode/
+.idea/
+.DS_Store
+
+# Build Folders
+dist/
+build/
+coverage/
+
+# Misc
+*.bak
+*.swp
+*.swo
