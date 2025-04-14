@@ -1,0 +1,173 @@
+/* Container Styles */
+.info-panel-container {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Loading State */
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 3px solid #e5e7eb;
+  border-top-color: #5f67ff;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 1.125rem;
+  color: #4b4c63;
+  font-weight: 500;
+}
+
+/* Content Container */
+.content-container {
+  max-width: 42rem;
+  width: 100%;
+  padding: 2rem;
+}
+
+.content-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.75rem;
+}
+
+@media (min-width: 768px) {
+  .content-flex {
+    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.75rem;
+  }
+}
+
+.flag-title-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 0.5rem;
+}
+
+/* Flag Styles */
+.flag-container {
+  width: 5.75rem;
+  height: 5.75rem;
+  border-radius: 50%;
+  box-shadow: 5px 10px 8px -2px rgb(0 0 0 / 0.4);
+}
+
+.flag-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Country Info */
+.country-info {
+  flex: 1;
+}
+
+.country-info > * + * {
+  margin-top: 1.5rem;
+}
+
+.country-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #414141;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #414141;
+}
+
+/* Grid Layout */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Info Item Styles */
+.info-item {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.info-item:hover {
+  cursor: pointer;
+  box-shadow: -4px 10px 8px -2px rgba(101, 90, 222, 0.4);
+}
+
+.info-item-icon {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 1rem;
+}
+
+.icon-image {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.info-item-text {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.info-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6968c5;
+  margin-bottom: 0.5rem;
+}
+
+.info-value {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #414141;
+}
+
+/* Error Message */
+.error-message {
+  padding: 1.5rem 2rem;
+  background: #fee2e2;
+  border-radius: 0.5rem;
+  color: #b91c1c;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
