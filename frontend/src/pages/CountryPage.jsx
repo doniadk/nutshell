@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import CountryDisplay from "../components/CountryDisplay";
 import InfoPanel from "../components/InfoPanel";
-import Button from "../components/button";
+import Button from "../components/Button";
 
 export default function CountryPage() {
   const { id } = useParams();

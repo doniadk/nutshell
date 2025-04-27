@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // API route, route enderer(countryRouter)
-app.use("/api/country", countryRouter);
+app.use("/country", countryRouter);
 
 // app_instance.METHOD(param1: path, param2:callback func(request, response)=>{} )
 app.get("/", (req, res) => {
@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 // to make the app listen to api calls:
 //app.listen(port, callback func executed once server is active)
 app.listen(PORT, async () => {
-  console.log(`Server running on port http://localhost:${PORT}`);
+  //console.log(`Server running on port http://localhost:${PORT}`);
 
   await connectToDB();
 });

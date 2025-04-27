@@ -11,7 +11,7 @@ function InfoPanel({ country }) {
     async function fetchCountry() {
       try {
         const res = await axios.get(
-          `http://localhost:5500/api/country/${country}`
+          `https://nutshell-dua0.onrender.com/country/${country}`
         );
         setInfo(res.data);
         console.log(res.data);
