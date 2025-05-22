@@ -7,7 +7,7 @@ import { useDrag } from "@use-gesture/react"; // For drag interaction
 import useMaterials from "../utils/Materials";
 
 function CountryModel({ country, isSelected }) {
-  const { scene } = useGLTF(`https://nutshell-front.onrender.com/3d/country_models/${country}.glb`);
+  const { scene } = useGLTF(`https://nutshell-front.onrender.com/3d/models-compressed/${country}.glb`);
   const [model, setModel] = useState(null);
   const { countryMaterial } = useMaterials();
   const modelRef = useRef(); // Ref to the model for rotation
