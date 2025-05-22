@@ -4,7 +4,7 @@ import useMaterials from "../utils/Materials";
 import { useGLTF } from "@react-three/drei";
 
 function Model({ setSelectedCountry, selectedCountry }) {
-  const { scene } = useGLTF("https://nutshell-front.onrender.com/3d/country_models/3d/map3.glb");
+  const { scene } = useGLTF("https://nutshell-front.onrender.com/3d/models-compressed/3d/map3.glb");
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const { baseMaterial, selectedMaterial, hoverMaterial } = useMaterials();
 
