@@ -11,10 +11,10 @@ function InfoPanel({ country }) {
     async function fetchCountry() {
       try {
         const res = await axios.get(
-          `https://nutshell-dua0.onrender.com/country/${country}`
+          `https://restcountries.com/v3.1/alpha/${country}`
         );
-        setInfo(res.data);
-        console.log(res.data);
+        setInfo(res.data[0]);
+        console.log(res.data[0]);
       } catch (error) {
         console.error("Failed to fetch country data", error);
         setInfo(null);
@@ -60,46 +60,54 @@ function InfoPanel({ country }) {
                     transition={{ type: "spring", stiffness: 200 }}
                   >
                     <img
-                      src={info.CountryData.flag}
+                      src={info.flags.svg}
                       className="flag-image"
                       alt="Country Flag"
                     />
                   </motion.div>
-                  <h1 className="country-title">{info.country}</h1>
+                  <h1 className="country-title">
+                    {info.altSpellings?.[1] || info.name?.common}
+                  </h1>
                 </div>
                 <div className="info-grid">
                   <InfoItem
                     label="Capital"
-                    value={info.CountryData.capital || "N/A"}
+                    value={info.capital?.[0] || "N/A"}
                     icon="/images/government-flag.png"
                   />
                   <InfoItem
                     label="Currency"
-                    value={info.CountryData.currency}
+                    value={
+                      info.currencies
+                        ? Object.values(info.currencies)
+                            .map((c) => `${c.name} (${c.symbol})`)
+                            .join(", ")
+                        : "N/A"
+                    }
                     icon="/images/coins.png"
                   />
                   <InfoItem
                     label="Population"
-                    value={`${(
-                      info.CountryData.population ?? 0
-                    ).toLocaleString()},000`}
+                    value={info.population?.toLocaleString() || "N/A"}
                     icon="/images/population.png"
                   />
                   <InfoItem
                     label="Area"
-                    value={`${(
-                      info.CountryData.surface_area ?? 0
-                    ).toLocaleString()} km²`}
+                    value={`${(info.area ?? 0).toLocaleString()} km²`}
                     icon="/images/globe-alt.png"
                   />
                   <InfoItem
                     label="GDP"
-                    value={`$${(info.CountryData.gdp ?? 0).toLocaleString()} M`}
+                    value={`$${(info.timezones[0] ?? 0).toLocaleString()} M`}
                     icon="/images/chat-arrow-grow.png"
                   />
                   <InfoItem
-                    label="Unemployment"
-                    value={`${info.CountryData.unemployment}%`}
+                    label="Languages"
+                    value={
+                      info.languages
+                        ? Object.values(info.languages).join(", ")
+                        : "N/A"
+                    }
                     icon="/images/triangle-person-digging.png"
                   />
                 </div>
